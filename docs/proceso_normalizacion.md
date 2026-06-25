@@ -48,4 +48,4 @@ El modelo médico fue diseñado para separar la demografía del paciente de la i
 ![Diagrama Relacional Hospitales](diagramas_er/imagen_ecommerce.jpg)
 
 ### Relacional
-![Diagrama Relacional Hospitales](diagramas_er/hostital_NR.png)
+![Diagrama Relacional Hospitales](diagramas_er/hospital_NR.png)

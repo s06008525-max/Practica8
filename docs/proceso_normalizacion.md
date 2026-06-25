@@ -13,7 +13,7 @@ El modelo relacional para este conjunto de datos se caracteriza por resolver mú
 * **Entidades Asociativas (Tablas Puente):** `show_director`, `show_actor`, `show_country` y `show_genre`. Estas tablas rompen la relación M:N. Su característica principal es que poseen una **Llave Primaria Compuesta**, formada por la combinación de las dos llaves foráneas que reciben, garantizando que no existan registros duplicados exactos (ej. el mismo actor registrado dos veces en la misma película).
 
 ### Diagrama EER
-![Diagrama EER Netflix](diagramas_er/Net_EER)
+![Diagrama EER Netflix](diagramas_er/Net_EER.png)
 
 ### Relacional
 ![Diagrama Relacional Netflix](diagramas_er/Net_MR.png)
@@ -29,7 +29,7 @@ Este modelo sigue una estructura transaccional clásica de ventas (Cabecera - De
 * **Entidad de Detalle (Transacción Débil):** `invoice_details`. Es la tabla más granular. Resuelve la relación M:N entre facturas y productos. Utiliza una llave primaria serial (`detail_id`) e importa `invoice_no` y `stock_code` como llaves foráneas para registrar la cantidad (`quantity`) y el precio unitario (`unit_price`) exactos en el momento de esa transacción específica.
 
 ### Diagrama EER
-![Diagrama E-commerce](diagramas_er/E_EER)
+![Diagrama E-commerce](diagramas_er/E_EER.png)
 
 ### Relacional
 ![Diagrama E-commerce](diagramas_er/E_MR.png)
@@ -45,7 +45,7 @@ El modelo médico fue diseñado para separar la demografía del paciente de la i
 * **Entidad Transaccional:** `encounters`. Funciona como el evento temporal que une a las entidades. Tiene relaciones **1 a Muchos (1:N)** tanto con `patients` como con `icus`. Es decir, un paciente puede tener múltiples encuentros a lo largo del tiempo, y una unidad UCI alberga múltiples encuentros. La tabla conserva como atributos propios solo los datos médicos de ese evento puntual (ej. si fue cirugía electiva, fuente de admisión y diagnóstico APACHE 2).
 
 ### Diagrama EER
-![Diagrama Relacional Hospitales](diagramas_er/hospital_ERR.png)
+![Diagrama Relacional Hospitales](diagramas_er/hospital_EER.png)
 
 ### Relacional
 ![Diagrama Relacional Hospitales](diagramas_er/hospital_NR.png)

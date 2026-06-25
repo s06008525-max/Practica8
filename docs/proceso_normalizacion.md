@@ -1,4 +1,4 @@
-# 2. Diagramas ER y Relacionales (Ejercicio 5)
+# 2. Diagramas ER y Relacionales
 
 En esta sección se presenta la conceptualización gráfica de las bases de datos transformadas. A partir de la normalización a 3FN, se diseñaron los Esquemas de Definición de Datos (DDL) en PostgreSQL. A continuación, se detallan los Modelos Relacionales y los Diagramas Entidad-Relación Extendidos (EER) resultantes, demostrando la integridad referencial mediante Llaves Primarias (PK) y Llaves Foráneas (FK).
 

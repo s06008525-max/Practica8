@@ -7,7 +7,7 @@ A continuación se presenta el análisis de los tres conjuntos de datos original
 ## Dataset 1: E-commerce Sales (data.csv)
 
 ### Evidencia de Datos Desnormalizados
-![Captura de registros sucios E-commerce](main/docs/diagramas_er/imagen_ecommerce.jpg)
+![Captura de registros sucios E-commerce](diagramas_er/imagen_ecommerce.jpg)
 
 ### Identificación de 5 Registros Anómalos
 * **Registro 1:** En la fila 2, para el `InvoiceNo` 536365, se encontró en la columna `Description` el valor "WHITE METAL LANTERN" ligado al `StockCode` 71053, y en la columna `Country` el valor "United Kingdom" ligado al `CustomerID` 17850.

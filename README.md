@@ -1,95 +1,69 @@
-# Práctica 8: Normalización de Bases de Datos
+# 🏛️ Sistema de Gestión Notarial 105 (Versión Estática)
 
-**Instituto Politécnico Nacional (IPN) - Escuela Superior de Cómputo (ESCOM)**
-**Carrera:** Ingeniería en Inteligencia Artificial 
+Este repositorio contiene la **versión 100% estática** del Sistema de Gestión Notarial 105. 
 
-Este repositorio contiene la solución completa para la Práctica 8, enfocada en la aplicación de conceptos y técnicas de normalización sobre conjuntos de datos reales. El sistema lleva estructuras desnormalizadas desde su estado original hasta la Tercera Forma Normal (3FN), automatizando el proceso mediante scripts de Python y desplegando la solución en un entorno contenerizado con Docker y PostgreSQL.
+Originalmente diseñado con una arquitectura cliente-servidor usando Python (Flask) y PostgreSQL, este proyecto ha sido refactorizado para ejecutarse exclusivamente en el navegador web del cliente mediante **HTML, CSS (Bootstrap 5) y JavaScript Vainilla**.
 
-**Unidad de Aprendizaje:** Bases de Datos
-**Profesor:** Gabriel Hurtado Avilés
+Esta versión fue creada para propósitos de demostración y evaluación, garantizando que el sistema pueda ser probado a largo plazo sin depender de costos de alojamiento de servidores o mantenimiento de bases de datos activas.
 
-### Integrantes:
-1. Derek Calvario Santiago
-2. Jesús Alfonso Barrios Torres
-3. Minerva Lopez Aguilar
+---
 
+## 👥 Equipo de Desarrollo
+Proyecto desarrollado por estudiantes de la **Escuela Superior de Cómputo (ESCOM - IPN)**:
+* Jesús Alfonso Barrios Torres
+* Derek
+* Uriel
+* Paola
+* Dani
 
-## Estructura del Proyecto
+---
 
-El proyecto sigue una arquitectura estricta para separar los datos crudos, los datos procesados, los scripts de transformación y los modelos SQL:
+## ⚙️ Arquitectura y Tecnologías
+Al ser una aplicación puramente frontend, el sistema simula las operaciones de backend de la siguiente manera:
+* **Interfaz:** HTML5 y CSS3 (Bootstrap 5).
+* **Lógica y Enrutamiento:** JavaScript Vainilla.
+* **Persistencia de Datos (Mocking):** Se utiliza la API de `localStorage` del navegador para simular una base de datos relacional (almacenando usuarios, clientes, escrituras, etc., en formato JSON).
+* **Sesiones:** Se utiliza `sessionStorage` para manejar el estado de autenticación de los roles (Notario, Abogado, Cliente).
 
-* **`data/raw/`**: Contiene los datasets originales descargados de Kaggle (Netflix, E-commerce, Hospitales).
-* **`data/normalized/`**: Almacena los archivos CSV resultantes tras aplicar las reglas de 1FN, 2FN y 3FN.
-* **`scripts/`**: Código fuente en Python para la limpieza masiva y la inyección a la base de datos.
-* **`sql/ddl/`**: Scripts con el lenguaje de definición de datos (creación de tablas, PKs, FKs).
-* **`sql/dml/`**: Scripts de muestra con sentencias de inserción.
-* **`docs/`**: Documentación teórica y diagramas Entidad-Relación Extendidos (EER).
+> **⚠️ Nota Técnica:** Debido a la naturaleza del `localStorage`, los datos generados o modificados durante la sesión se guardan de forma local en el dispositivo y navegador de quien realiza la prueba. No hay sincronización en la nube ni concurrencia entre múltiples usuarios en distintos equipos.
 
-## Requisitos Previos
+---
 
-Para ejecutar este proyecto de manera local, solo es necesario contar con:
-* Docker 
-* Docker Compose
+## 🚀 Cómo probar el sistema
 
-No es necesario instalar Python, PostgreSQL, ni dependencias (como Pandas o SQLAlchemy) en la máquina local. Todo el entorno está aislado y gestionado por los contenedores.
+No se requiere instalación de dependencias, entornos virtuales ni servidores locales.
 
-## Instrucciones de Ejecución
+**Opción 1: GitHub Pages (Recomendado)**
+Simplemente ingresa al enlace público del despliegue:
+`[AQUÍ_PEGA_TU_LINK_DE_GITHUB_PAGES]`
 
-### 1. Levantar los contenedores
-En la raíz del proyecto, inicialice la red privada, el volumen de datos y los contenedores de la aplicación y la base de datos:
+**Opción 2: Ejecución Local**
+1. Clona este repositorio o descarga el código fuente.
+2. Abre la carpeta del proyecto.
+3. Haz doble clic en el archivo `index.html` para abrirlo en cualquier navegador web moderno.
 
-```bash
-docker-compose up -d --build
-```
+---
 
-**Evidencia de Contenedores en Ejecución:**
+## 🔑 Credenciales de Prueba (Seed)
 
+Para facilitar la evaluación, el sistema cuenta con un *script* de inicialización silenciosa que precarga cuentas de demostración en el navegador si no detecta datos previos. 
 
-<img width="719" height="92" alt="111" src="https://github.com/user-attachments/assets/ccc55099-3c03-4fd8-8bd9-e99e161fd46f" />
+Puedes utilizar las siguientes credenciales para probar los diferentes flujos y vistas según el nivel de acceso:
 
+| Rol | Correo Electrónico | Contraseña / Acceso |
+| :--- | :--- | :--- |
+| **Notario** (Admin) | `notario@notaria105.com` | `notario123` |
+| **Abogado** (Staff) | `abogado@notaria105.com` | `abogado123` |
+| **Cliente** (Ciudadano) | `cliente@example.com` | **CURP:** `PELJ850303HDFRPN03` |
 
+*(El sistema también incluye una escritura de "Fe de Hechos" precargada para poder visualizar el funcionamiento del Dashboard inmediatamente después del primer inicio de sesión).*
 
-### 2. Ejecutar la normalización (Transformación a 3FN)
-Los siguientes comandos leerán los archivos crudos, resolverán las anomalías de dependencias funcionales, generarán los esquemas DDL y guardarán los datos limpios:
+---
 
-```bash
-# Normalizar Dataset 1 (Netflix)
-docker exec -it normalizacion-db-app-1 python scripts/normalize_dataset1.py
-
-# Normalizar Dataset 2 (E-commerce)
-docker exec -it normalizacion-db-app-1 python scripts/normalize_dataset2.py
-
-# Normalizar Dataset 3 (Hospitales)
-docker exec -it normalizacion-db-app-1 python scripts/normalize_dataset3.py
-```
-
-### 3. Migrar los datos a PostgreSQL
-Una vez normalizados, este script construirá el modelo relacional en el motor de base de datos e inyectará todos los registros manteniendo la integridad referencial:
-
-```bash
-docker exec -it normalizacion-db-app-1 python scripts/load_database.py
-```
-
-**Evidencia de Ejecución:**
-
-<img width="287" height="401" alt="222" src="https://github.com/user-attachments/assets/3b90ba9a-bbfa-42ee-b66e-e3fc255a89f6" />
-
-
-
-## Comprobación del Despliegue en la Base de Datos
-
-Para verificar que los datos residen correctamente en la base de datos PostgreSQL contenerizada, accedemos a la consola interactiva con el siguiente comando:
-
-```bash
-docker exec -it normalizacion-db-db-1 psql -U admin -d db_normalizacion
-```
-
-**Evidencia del Modelo Relacional, las tablas creadas a partir del DDL:**
-
-<img width="270" height="281" alt="333" src="https://github.com/user-attachments/assets/b9c497f6-6cb7-4f4a-bbbb-dfac6d316051" />
-
-
-**Evidencia de Integridad de Datos el medio millón de registros insertados:**
-
-<img width="334" height="101" alt="444" src="https://github.com/user-attachments/assets/6cb6c7d8-905b-48cb-8e0f-4560265760cb" />
-
+## 📂 Estructura Principal del Proyecto
+* `index.html`: Punto de entrada y Login general.
+* `login_cliente.html`: Acceso exclusivo para el Portal Ciudadano.
+* `dashboard.html`: Panel principal para empleados.
+* `portal_cliente.html`: Vista de seguimiento de trámites para ciudadanos.
+* `/js/db.js`: Motor de base de datos simulada en `localStorage` y script de inicialización (Seed).
+* `/js/nav.js`: Controlador dinámico de la barra de navegación según el rol activo.

@@ -32,7 +32,7 @@ Estos datos violan la **Segunda Forma Normal (2FN)** y la **Tercera Forma Normal
 ## Dataset 2: Hospital Patient Records (dataset.csv)
 
 ### Evidencia de Datos Desnormalizados
-![Captura de registros sucios Hospitales](ruta/a/tu/imagen_hospitales.png)
+![Captura de registros sucios Hospitales](diagramas_er/imagen_hospitales.png)
 
 ### Identificación de 5 Registros Anómalos
 * **Registro 1:** En la fila 2, columna `encounter_id` 114252, se encontró esto: Los atributos `age` (77.0), `gender` (F) y `ethnicity` (Caucasian) se registran repitiendo la información intrínseca del `patient_id` 59342.
@@ -54,7 +54,7 @@ Este dataset viola la **Tercera Forma Normal (3FN)** al mezclar entidades lógic
 ## Dataset 3: Netflix Movies and TV Shows (netflix.csv)
 
 ### Evidencia de Datos Desnormalizados
-![Captura de registros sucios Netflix](ruta/a/tu/imagen_netflix.png)
+![Captura de registros sucios Netflix](diagramas_er/imagen_netflix.png)
 
 ### Identificación de 5 Registros Anómalos
 * **Registro 1:** En la fila 2, columna `cast` del `show_id` s2, se encontró esto: "Ama Qamata, Khosi Ngema, Gail Mabalane, Thabang Molaba...". Múltiples actores en una sola celda.

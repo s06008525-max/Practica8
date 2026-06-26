@@ -1,69 +1,42 @@
-# 🏛️ Sistema de Gestión Notarial 105 (Versión Estática)
+# 🗄️ Práctica 8: Normalización de Bases de Datos
 
-Este repositorio contiene la **versión 100% estática** del Sistema de Gestión Notarial 105. 
-
-Originalmente diseñado con una arquitectura cliente-servidor usando Python (Flask) y PostgreSQL, este proyecto ha sido refactorizado para ejecutarse exclusivamente en el navegador web del cliente mediante **HTML, CSS (Bootstrap 5) y JavaScript Vainilla**.
-
-Esta versión fue creada para propósitos de demostración y evaluación, garantizando que el sistema pueda ser probado a largo plazo sin depender de costos de alojamiento de servidores o mantenimiento de bases de datos activas.
+**Instituto Politécnico Nacional (IPN) - Escuela Superior de Cómputo (ESCOM)**
+**Programa:** Ingeniería en Inteligencia Artificial / 2020[cite: 1]
+**Unidad de Aprendizaje:** Bases de Datos[cite: 1]
 
 ---
 
-## 👥 Equipo de Desarrollo
-Proyecto desarrollado por estudiantes de la **Escuela Superior de Cómputo (ESCOM - IPN)**:
+## 👥 Integrantes del Equipo
+* Derek Calvario Santiago
 * Jesús Alfonso Barrios Torres
-* Derek
-* Uriel
-* Paola
-* Dani
+* Minerva Aguilar López
 
----
+## 🎯 Objetivo del Proyecto
+El objetivo principal de esta práctica es aplicar los conceptos y técnicas de normalización de bases de datos sobre conjuntos de datos reales[cite: 1]. El proyecto lleva estructuras desnormalizadas desde su estado original (obtenidas de Kaggle) hasta la Tercera Forma Normal (3FN)[cite: 1]. 
 
-## ⚙️ Arquitectura y Tecnologías
-Al ser una aplicación puramente frontend, el sistema simula las operaciones de backend de la siguiente manera:
-* **Interfaz:** HTML5 y CSS3 (Bootstrap 5).
-* **Lógica y Enrutamiento:** JavaScript Vainilla.
-* **Persistencia de Datos (Mocking):** Se utiliza la API de `localStorage` del navegador para simular una base de datos relacional (almacenando usuarios, clientes, escrituras, etc., en formato JSON).
-* **Sesiones:** Se utiliza `sessionStorage` para manejar el estado de autenticación de los roles (Notario, Abogado, Cliente).
+Esto nos permite comprender las anomalías de inserción, actualización y eliminación que surgen en bases de datos desnormalizadas, y cómo la normalización resuelve estos problemas mejorando la integridad, consistencia y eficiencia del modelo de datos[cite: 1].
 
-> **⚠️ Nota Técnica:** Debido a la naturaleza del `localStorage`, los datos generados o modificados durante la sesión se guardan de forma local en el dispositivo y navegador de quien realiza la prueba. No hay sincronización en la nube ni concurrencia entre múltiples usuarios en distintos equipos.
+## 📊 Datasets Analizados
+El proceso de normalización se aplicó sobre tres conjuntos de datos:
+1. **Netflix Movies and TV Shows**[cite: 1]
+2. **E-commerce Sales Data**[cite: 1]
+3. **Hospital Patient Records**[cite: 1]
 
----
+## 📂 Arquitectura del Repositorio
+El repositorio está estructurado de la siguiente manera para mantener un orden lógico entre los datos, el código y la infraestructura, cumpliendo con los requerimientos de la práctica[cite: 1]:
 
-## 🚀 Cómo probar el sistema
+* `📁 data/`: Contiene los datasets originales (en formato CSV/Excel) y los archivos exportados con los datos ya normalizados[cite: 1].
+* `📁 docs/`: Documentación detallada del proyecto, incluyendo el análisis de los datos originales, el proceso de normalización paso a paso (1FN, 2FN, 3FN) y los Diagramas Entidad-Relación[cite: 1].
+* `📁 scripts/`: Scripts de automatización (ej. Python) encargados de leer, procesar, limpiar y dividir los datos según las reglas de normalización[cite: 1].
+* `📁 sql/`: Archivos con sentencias SQL, divididos en scripts DDL (para la creación de esquemas y tablas) y scripts DML (para la inserción de datos transformados)[cite: 1].
+* `📄 Dockerfile`: Configuración para la creación de la imagen del contenedor de la aplicación[cite: 1].
+* `📄 docker-compose.yml`: Archivo de orquestación para levantar múltiples contenedores (la base de datos con sus volúmenes y la aplicación), configurando redes y puertos[cite: 1].
+* `📄 requirements.txt`: Listado de dependencias necesarias para ejecutar los scripts (como pandas, SQLAlchemy, etc.)[cite: 1].
+* `📄 README.md`: Este archivo de documentación principal.
 
-No se requiere instalación de dependencias, entornos virtuales ni servidores locales.
+## 🚀 Instrucciones de Despliegue (Docker)
+Para facilitar la portabilidad y reproducibilidad, la solución completa se encuentra contenerizada[cite: 1].
 
-**Opción 1: GitHub Pages (Recomendado)**
-Simplemente ingresa al enlace público del despliegue:
-`[AQUÍ_PEGA_TU_LINK_DE_GITHUB_PAGES]`
-
-**Opción 2: Ejecución Local**
-1. Clona este repositorio o descarga el código fuente.
-2. Abre la carpeta del proyecto.
-3. Haz doble clic en el archivo `index.html` para abrirlo en cualquier navegador web moderno.
-
----
-
-## 🔑 Credenciales de Prueba (Seed)
-
-Para facilitar la evaluación, el sistema cuenta con un *script* de inicialización silenciosa que precarga cuentas de demostración en el navegador si no detecta datos previos. 
-
-Puedes utilizar las siguientes credenciales para probar los diferentes flujos y vistas según el nivel de acceso:
-
-| Rol | Correo Electrónico | Contraseña / Acceso |
-| :--- | :--- | :--- |
-| **Notario** (Admin) | `notario@notaria105.com` | `notario123` |
-| **Abogado** (Staff) | `abogado@notaria105.com` | `abogado123` |
-| **Cliente** (Ciudadano) | `cliente@example.com` | **CURP:** `PELJ850303HDFRPN03` |
-
-*(El sistema también incluye una escritura de "Fe de Hechos" precargada para poder visualizar el funcionamiento del Dashboard inmediatamente después del primer inicio de sesión).*
-
----
-
-## 📂 Estructura Principal del Proyecto
-* `index.html`: Punto de entrada y Login general.
-* `login_cliente.html`: Acceso exclusivo para el Portal Ciudadano.
-* `dashboard.html`: Panel principal para empleados.
-* `portal_cliente.html`: Vista de seguimiento de trámites para ciudadanos.
-* `/js/db.js`: Motor de base de datos simulada en `localStorage` y script de inicialización (Seed).
-* `/js/nav.js`: Controlador dinámico de la barra de navegación según el rol activo.
+1. Clona este repositorio en tu máquina local:
+   ```bash
+   git clone [https://github.com/ingmatmus7-ai/Pr-ctica-8.git](https://github.com/ingmatmus7-ai/Pr-ctica-8.git)
